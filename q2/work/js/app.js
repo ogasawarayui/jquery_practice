@@ -1,5 +1,4 @@
 $(function () {
-  //クリックして
   $(".modal_open_button").on('click', function () {
     $(".modal_win").fadeIn();
   });
