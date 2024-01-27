@@ -12,9 +12,11 @@ $(function () {
     var searchWord = $("#search-input").val();
     if (searchWord === searchLog) {
       pageCount = pageCount + 1;
+      console.log(pageCount);
     } else {
       pageCount = 1;
       searchLog = searchWord;
+      console.log(searchLog);
     }
     console.log($("#search-input").val());
     $.ajax(settings).done(function (response) {
@@ -25,7 +27,7 @@ $(function () {
     });
   });
   function displayResult(data) {
-    //for (let i = 0; i < len; i++) { のようなコード書く
+
   }
   function displayError(error) {
 
