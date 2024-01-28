@@ -35,7 +35,4 @@ $(function () {
       });
     }
   }
-  //function displayError(error) {
-
-  //}
 });
