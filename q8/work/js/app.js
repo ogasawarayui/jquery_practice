@@ -4,7 +4,6 @@ $(function () {
   var pageCount = 1;
   //検索ワードの初期値を設定する　変数に前の検索ワードを格納
   var searchLog = "";
-
   $(".search-btn").on("click", function () {
     var searchWord = $("#search-input").val();
     if (searchWord === searchLog) {
@@ -27,12 +26,37 @@ $(function () {
       displayError(err)
     });
   });
-  function displayResult(data) {
+  function displayResult(result) {
     $(".lists").empty();
+    const resultItem = result[0].items;
     if (result && result.length > 0) {
-      result.forEach(function (item) {
-        console.log(value);
+      $.each(resultItem, function (index, item) {
+        console.log(item);
+        const title = item["title"];
+        console.log(title);
+        const creator = item["dc:creator"];
+        const bookinfo = title + creator;
+        $(".lists").prepend(bookinfo);
       });
     }
   }
+  $(".reset-btn").on('click', function () {
+    $(".lists").empty();
+  })
+  function displayError(err) {
+    console.log(err.status);
+  }
+  if (400 === 400) {
+    console.log("リクエストエラー")
+  }
+  else if (0 === 0) {
+    console.log("正常に処理できませんでした")
+  }
+  else {
+    console.log("エラーが発生しました")
+  }
+  var result = $('lists').position();
+  console.log(result);
+  console.log(result.top);
+  console.log(result.left);
 });
