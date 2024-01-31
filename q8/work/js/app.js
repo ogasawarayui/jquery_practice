@@ -59,4 +59,10 @@ $(function () {
   console.log(result);
   console.log(result.top);
   console.log(result.left);
+
+  const pos = $('lists').offset();
+
+  console.log(pos);
+
+
 });
