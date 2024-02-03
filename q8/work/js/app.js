@@ -26,43 +26,45 @@ $(function () {
       displayError(err)
     });
   });
+
   function displayResult(result) {
     $(".lists").empty();
+    $(".message").remove();
     const resultItem = result[0].items;
-    if (result && result.length > 0) {
+    if (result[0]["opensearch:totalResults"] > 0) {
       $.each(resultItem, function (index, item) {
-        console.log(item);
         const title = item["title"];
-        console.log(title);
         const creator = item["dc:creator"];
-        const bookinfo = title + creator;
+        const publisher = item["dc:publisher"];
+        const link = item["link"]["@id"];
+        console.log(link);
+        const bookinfo = '<li class="lists-item"><div class="list-inner"><p>タイトル：' + title + '</p><p>作者：' + creator + '</p><p>出版社：' + publisher + '</p><a href="' + link + '" target="_blank">書籍情報</a></div></li>';
         $(".lists").prepend(bookinfo);
       });
+    } else {
+      $(".lists").before('<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>');
     }
   }
-  $(".reset-btn").on('click', function () {
-    $(".lists").empty();
-  })
+
   function displayError(err) {
     console.log(err.status);
+    $(".message").remove();
+    if (400 === 400) {
+      $(".lists").before('<div class="message">検索キーワードが有効ではありません。<br>1文字以上で検索して下さい。</div>');
+    }
+    else if (0 === 0) {
+      $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
+    }
+    else {
+      $(".lists").before('<div class="message">予期せぬエラーが起きました。<br>再読み込みを行ってください。</div>');
+    }
   }
-  if (400 === 400) {
-    console.log("リクエストエラー")
-  }
-  else if (0 === 0) {
-    console.log("正常に処理できませんでした")
-  }
-  else {
-    console.log("エラーが発生しました")
-  }
-  var result = $('lists').position();
-  console.log(result);
-  console.log(result.top);
-  console.log(result.left);
 
-  const pos = $('lists').offset();
-
-  console.log(pos);
-
+  $(".reset-btn").on('click', function () {
+    $(".lists").empty();
+    $("#search-input").val("");
+    $(".message").remove();
+  });
 
 });
+
