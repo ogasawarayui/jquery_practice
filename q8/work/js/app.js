@@ -49,10 +49,10 @@ $(function () {
   function displayError(err) {
     console.log(err.status);
     $(".message").remove();
-    if (400 === 400) {
+    if (err.status === 400) {
       $(".lists").before('<div class="message">検索キーワードが有効ではありません。<br>1文字以上で検索して下さい。</div>');
     }
-    else if (0 === 0) {
+    else if (err.status === 0) {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
     }
     else {
